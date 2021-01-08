@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 html {
   font-family: 'Montserrat';
   font-size: 16px;
@@ -34,7 +34,7 @@ html {
   box-sizing: border-box;
   margin: 0;
 }
-p, a, span, button, div, h1, h2, h3, h4, h5, h6 {
+p, a, span, button, div, h1, h2, h3, h4, h5, h6, input {
   font-family: 'Montserrat';
   margin: 0;
   padding: 0;
@@ -80,5 +80,21 @@ p, a, span, button, div, h1, h2, h3, h4, h5, h6 {
   bottom: 60px;
   background: #262626;
   transition: all .3s ease-out;
+}
+
+*{
+  &::-webkit-scrollbar{
+    width: 1px;
+    height: 1px;
+  }
+  &::-webkit-scrollbar-track{
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb{
+    background: #888;
+    &:hover{
+      background: #181818;
+    }
+  }
 }
 </style>

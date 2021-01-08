@@ -10,7 +10,7 @@
         >
           <Card 
             class="card-list__item" 
-            :style="cardsArray.length <= 2 ? `width: calc((100vw - 30px - 15px) / ${cardsArray.length})` : ''" 
+            :style="cardsArray.length <= 2 ? `width: calc((100vw - 30px - 15px - 2px) / ${cardsArray.length})` : ''" 
             :image="card.image"
             :title="card.title"
           />
@@ -39,7 +39,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .card-list__container{
   margin-top: 15px;
   overflow: auto;
@@ -51,6 +51,7 @@ export default {
   display: flex;
   padding-left: 15px;
   padding-right: 15px;
+  padding-bottom: 10px;
 }
 .card-list__box{
   margin-right: 15px;

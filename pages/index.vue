@@ -23,6 +23,12 @@
         </div>
         <button class="cities-section__more">Показать ещё</button>
       </div>
+      <div class="about-section">
+        <AboutSection/>
+      </div>
+      <div class="feedback-section">
+        <Feedback/>
+      </div>
     </div>
   </div>
 </template>
@@ -97,7 +103,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .city-select{
   height: 100vw;
   position: relative;
@@ -152,6 +158,7 @@ export default {
 
 .cities-section{
   padding-top: 30px;
+  padding-bottom: 30px;
 }
 .cities-section__item{
   margin-bottom: 30px;
@@ -167,11 +174,17 @@ export default {
   color: #EA9C1F;
   padding: 14px 64px;
   border: 1px solid #EA9C1F;
-  box-shadow: inset 2px 3px 9px rgba(38, 38, 38, 0.15);
+  // box-shadow: inset 2px 3px 9px rgba(38, 38, 38, 0.15);
   border-radius: 5px;
   margin-top: 30px;
   margin-left: auto;
   margin-right: auto;
   display: block;
+}
+
+
+.about-section{
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 </style>

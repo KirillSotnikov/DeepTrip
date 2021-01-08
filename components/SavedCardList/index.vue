@@ -46,6 +46,7 @@ export default {
   display: flex;
   padding-left: 15px;
   padding-right: 15px;
+  padding-bottom: 10px;
 }
 .card-list__box{
   margin-right: 15px;
