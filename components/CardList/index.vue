@@ -1,16 +1,16 @@
 <template>
   <div class="card-list">
-    <ListHeader :title="listTitle"/>
+    <ListHeader :moreLink="`/cities/${cityId}`" :title="listTitle"/>
     <div class="card-list__container">
       <div class="card-list__wrapper">
-        <div 
+        <div
           class="card-list__box"
           v-for="(card, n) in cardsArray"
           :key="n"
         >
-          <Card 
-            class="card-list__item" 
-            :style="cardsArray.length <= 2 ? `width: calc((100vw - 30px - 15px - 2px) / ${cardsArray.length})` : ''" 
+          <Card
+            class="card-list__item"
+            :style="cardsArray.length <= 2 ? `width: calc((100vw - 30px - 15px - 2px) / ${cardsArray.length})` : ''"
             :image="card.image"
             :title="card.title"
           />
@@ -25,6 +25,10 @@ import Card from '~/components/Cards/PlaceCard.vue'
 export default {
   props: {
     listTitle: {
+      type: String,
+      default: ''
+    },
+    cityId: {
       type: String,
       default: ''
     },

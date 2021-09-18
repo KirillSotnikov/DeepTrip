@@ -21,9 +21,6 @@ export default {
       default: false,
     }
   },
-  mounted() {
-    console.log(this.reverted)
-  }
 }
 </script>
 

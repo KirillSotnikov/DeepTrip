@@ -1,11 +1,18 @@
 // import users from './modules/users'
 
+const cities = {
+  'odesa': 'Одесса',
+  'kyiv': 'Киев',
+  'lviv': 'Львов',
+}
+
 export default {
   modules: {
     // users
   },
   state: {
-    isVisibleMenu: false
+    isVisibleMenu: false,
+    activeCityId: null
   },
   mutations: {
     openMenu(state) {
@@ -13,11 +20,28 @@ export default {
     },
     closeMenu(state) {
       state.isVisibleMenu = false
+    },
+    setActiveCity(state, payload) {
+      state.activeCityId = payload;
+    }
+  },
+  actions: {
+    openMenu(store) {
+      store.commit('openMenu');
+    },
+    closeMenu(store) {
+      store.commit('closeMenu');
+    },
+    setActiveCity(store, payload) {
+      store.commit('setActiveCity', payload);
     }
   },
   getters: {
     isVisibleMenu(state) {
       return state.isVisibleMenu
+    },
+    activeCity(state) {
+      return state.activeCityId ? cities[state.activeCityId] : null;
     }
   }
 }

@@ -22,10 +22,10 @@ export default {
       this.isVisibleMenu ? this.closeMenu() : this.openMenu()
     },
     openMenu() {
-      this.$store.commit('openMenu')
+      this.$store.dispatch('openMenu')
     },
     closeMenu() {
-      this.$store.commit('closeMenu')
+      this.$store.dispatch('closeMenu')
     }
   }
 }

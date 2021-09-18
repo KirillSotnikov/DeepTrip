@@ -1,13 +1,14 @@
 <template>
   <div :class="{'app-menu-visible': isVisibleMenu}" class="app-menu">
     <div class="app-menu__list">
-      <p 
-        class="app-menu__item" 
+      <router-link
+        class="app-menu__item"
         v-for="(item, i) in menuList"
         :key="i"
+        :to="item.link"
       >
         {{item.title}}
-      </p>
+      </router-link>
     </div>
   </div>
 </template>
@@ -56,6 +57,16 @@ export default {
     isVisibleMenu() {
       return this.$store.getters.isVisibleMenu
     }
+  },
+  methods: {
+    closeMenu() {
+      this.$store.dispatch('closeMenu')
+    }
+  },
+  watch: {
+    '$route'() {
+      this.closeMenu();
+    }
   }
 }
 </script>
@@ -80,5 +91,6 @@ export default {
   text-align: center;
   color: #ECECEC;
   opacity: 0.5;
+  text-decoration: none;
 }
 </style>

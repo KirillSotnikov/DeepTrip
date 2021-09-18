@@ -11,7 +11,12 @@
 
 <script>
 export default {
-
+  watch: {
+    '$route.name'(val) {
+      const element = document.querySelector('.app-container');
+      element.scrollTo(0, 0);
+    }
+  }
 }
 </script>
 

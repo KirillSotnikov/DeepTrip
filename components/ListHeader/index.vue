@@ -1,7 +1,7 @@
 <template>
   <div class="list-header">
     <p class="list-header__title">{{title}}</p>
-    <nuxt-link class="list-header__link" to="/">
+    <nuxt-link class="list-header__link" :to="moreLink">
       Подробнее
     </nuxt-link>
   </div>
@@ -11,6 +11,10 @@
 export default {
   props: {
     title: {
+      type: String,
+      default: ''
+    },
+    moreLink: {
       type: String,
       default: ''
     }

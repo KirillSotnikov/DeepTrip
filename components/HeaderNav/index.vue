@@ -3,16 +3,20 @@
     <nuxt-link to="/" class="header-nav__logo">
       <img src="~/assets/logo.svg"/>
     </nuxt-link>
-    <div class="header-nav__select">
+    <div v-if="activeCity" class="header-nav__select">
       <material-icon name="place" class="header-nav__icon"/>
-      <span class="header-nav__text">Город</span>
+      <span class="header-nav__text">{{ activeCity }}</span>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  
+  computed: {
+    activeCity() {
+      return this.$store.getters.activeCity
+    }
+  }
 }
 </script>
 

@@ -18,7 +18,11 @@
             v-for="(city, index) in citiesCards"
             :key="index"
           >
-            <CardList :listTitle="city.title" :cardsArray="city.categories" />
+            <CardList
+              :listTitle="city.title"
+              :cardsArray="city.categories"
+              :cityId="city.id"
+            />
           </div>
         </div>
         <button class="cities-section__more">Показать ещё</button>
@@ -72,6 +76,7 @@ export default {
       citiesCards: [
         {
           title: 'Одесса',
+          id: 'odesa',
           categories: [
             {
               title: 'Развлечения'
@@ -83,6 +88,7 @@ export default {
         },
         {
           title: 'Киев',
+          id: 'kyiv',
           categories: [
             {
               title: 'Развлечения'
@@ -94,6 +100,7 @@ export default {
         },
         {
           title: 'Львов',
+          id: 'lviv',
           categories: [
             {
               title: 'Развлечения'
