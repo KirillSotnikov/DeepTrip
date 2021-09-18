@@ -13,9 +13,9 @@
       </div>
       <div class="cities-section">
         <div class="cities-section__list">
-          <div 
-            class="cities-section__item" 
-            v-for="(city, index) in citiesCards" 
+          <div
+            class="cities-section__item"
+            v-for="(city, index) in citiesCards"
             :key="index"
           >
             <CardList :listTitle="city.title" :cardsArray="city.categories" />
@@ -29,6 +29,12 @@
       <div class="feedback-section">
         <Feedback/>
       </div>
+    </div>
+    <div class="footer-section">
+      <Footer/>
+    </div>
+    <div class="copyright-section">
+      <Copyright/>
     </div>
   </div>
 </template>
@@ -149,6 +155,7 @@ export default {
   border: none;
   border-radius: 5px;
   z-index: 2;
+  white-space: nowrap;
 }
 
 
