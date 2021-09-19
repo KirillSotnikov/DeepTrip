@@ -4,9 +4,9 @@
       <img src="~/assets/logo.svg"/>
     </nuxt-link>
     <transition name="fade" :duration="200">
-      <div v-if="activeCity" class="header-nav__select">
+      <div v-if="activeCity && isHeaderVisible" class="header-nav__select">
         <material-icon name="place" class="header-nav__icon"/>
-        <span class="header-nav__text">{{ activeCity }}</span>
+        <span class="header-nav__text">{{ activeCity.name }}</span>
       </div>
     </transition>
   </div>
@@ -15,8 +15,14 @@
 <script>
 export default {
   computed: {
+    activeCityId() {
+      return this.$store.getters.activeCityId;
+    },
     activeCity() {
-      return this.$store.getters.activeCity
+      return this.activeCityId ? this.$store.getters.getCityById(this.activeCityId) : null;
+    },
+    isHeaderVisible() {
+      return this.$store.getters.isHeaderVisible
     }
   }
 }

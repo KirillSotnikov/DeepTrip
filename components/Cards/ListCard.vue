@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/places/test" class="card" :class="activeClass">
+  <router-link :to="linkForMore" class="card" :class="activeClass">
     <div class="card__box">
       <div class="card__bg">
         <img v-if="Object.keys(image).length" :src="image.src" :alt="image.alt" class="card__image">
@@ -21,6 +21,10 @@ export default {
       default: () => {
         return {}
       }
+    },
+    linkForMore: {
+      type: String,
+      default: ''
     },
     title: {
       type: String,
