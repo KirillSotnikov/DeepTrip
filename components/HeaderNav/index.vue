@@ -3,10 +3,12 @@
     <nuxt-link to="/" class="header-nav__logo">
       <img src="~/assets/logo.svg"/>
     </nuxt-link>
-    <div v-if="activeCity" class="header-nav__select">
-      <material-icon name="place" class="header-nav__icon"/>
-      <span class="header-nav__text">{{ activeCity }}</span>
-    </div>
+    <transition name="fade" :duration="200">
+      <div v-if="activeCity" class="header-nav__select">
+        <material-icon name="place" class="header-nav__icon"/>
+        <span class="header-nav__text">{{ activeCity }}</span>
+      </div>
+    </transition>
   </div>
 </template>
 

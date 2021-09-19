@@ -6,6 +6,14 @@ const cities = {
   'lviv': 'Львов',
 }
 
+// const cities = [
+//   {
+//     id: 'odesa',
+//     name: '',
+//     mainImage: ''
+//   }
+// ]
+
 export default {
   modules: {
     // users

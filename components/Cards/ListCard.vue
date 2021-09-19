@@ -51,6 +51,8 @@ export default {
 <style lang="scss" scoped>
 .card{
   width: 100%;
+  display: block;
+  text-decoration: none;
 }
 .card-gallery .card__box{
   height: 50vw;

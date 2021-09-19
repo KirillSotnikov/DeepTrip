@@ -12,7 +12,7 @@
 <script>
 export default {
   watch: {
-    '$route.name'(val) {
+    '$route.name'() {
       const element = document.querySelector('.app-container');
       element.scrollTo(0, 0);
     }
@@ -101,5 +101,11 @@ p, a, span, button, div, h1, h2, h3, h4, h5, h6, input {
       background: #181818;
     }
   }
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
 }
 </style>

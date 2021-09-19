@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+    <div class="city_info" ref="infoContainer">
+      <div class="city_info__gradient"></div>
+      <div style="background-image: url('https://planetofhotels.com/guide/sites/default/files/styles/paragraph__live_banner__lb_image__1880bp/public/live_banner/odessa_0.jpg')" class="city_info__image"></div>
+      <p class="city_info__title">Одесса</p>
+    </div>
     <div class="wrapper">
       <div class="view_section">
         <div
@@ -121,19 +126,46 @@ export default {
         }
       ],
       activeType: typeEnum.GALLERY,
-      typeEnum
+      typeEnum,
+      infoPosition: 0,
+      infoScrolled: false
+    }
+  },
+  computed: {
+    mainElement() {
+      return document.querySelector('.app-container');
     }
   },
   methods: {
     changeType(type) {
       this.activeType = type;
+    },
+    scrollHandler() {
+      if (this.mainElement.scrollTop > this.infoPosition - 60) {
+        this.infoScrolled = true
+      } else {
+        this.infoScrolled = false
+      }
+    }
+  },
+  watch: {
+    infoScrolled(val, oldVal) {
+      val
+        ? this.$store.dispatch('setActiveCity', this.$route.params.id)
+        : this.$store.dispatch('setActiveCity', null);
     }
   },
   mounted() {
-    this.$store.dispatch('setActiveCity', this.$route.params.id);
+    // this.$store.dispatch('setActiveCity', this.$route.params.id);
+
+    this.$nextTick(() => {
+      this.infoPosition = this.$refs.infoContainer.getBoundingClientRect().bottom;
+      this.mainElement.addEventListener('scroll', this.scrollHandler);
+    })
   },
   beforeDestroy() {
     this.$store.dispatch('setActiveCity', null);
+    this.mainElement.removeEventListener('scroll', this.scrollHandler);
   }
 }
 </script>
@@ -195,11 +227,12 @@ export default {
 }
 
 .cards_section{
+  padding-bottom: 20px;
   &__list{
     &-square{
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      grid-gap: 20px;
+      grid-gap: 10px;
     }
     &-item{
       margin-bottom: 10px;
@@ -208,6 +241,37 @@ export default {
         margin-bottom: 0;
       }
     }
+  }
+}
+
+.city_info{
+  position: relative;
+  &__image{
+    width: 100%;
+    height: calc(50vh - 60px);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  &__gradient{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    background-image: linear-gradient(to top,rgba(0,0,0,0.4),rgba(0,0,0,0));
+    z-index: 1;
+  }
+  &__title{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 15px;
+    color: #fff;
+    font-size: 24px;
+    z-index: 2;
   }
 }
 </style>
