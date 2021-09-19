@@ -6,7 +6,7 @@
         <p class="place_page__title">{{activePlace.title}}</p>
         <p class="place_page__text">{{activePlace.description}}</p>
       </div>
-      <div class="place_page__gallery">
+      <div class="place_page__gallery" v-if="activePlace.gallery && activePlace.gallery.length">
         <div class="wrapper">
           <h2 class="place_page__gallery-title">Галерея</h2>
         </div>

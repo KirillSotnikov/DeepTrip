@@ -10,9 +10,9 @@
         >
           <Card
             class="card-list__item"
-            :style="cardsArray.length <= 2 ? `width: calc((100vw - 30px - 15px - 2px) / ${cardsArray.length})` : ''"
+            :style="cardsArray.length > 1 && cardsArray.length <= 2 ? `width: calc((100vw - 30px - 15px - 2px) / ${cardsArray.length})` : ''"
             :image="card.image"
-            :title="card.title"
+            :title="card.name"
           />
         </div>
       </div>

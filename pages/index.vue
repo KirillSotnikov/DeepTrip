@@ -15,11 +15,11 @@
         <div class="cities-section__list">
           <div
             class="cities-section__item"
-            v-for="(city, index) in citiesCards"
+            v-for="(city, index) in citiesList"
             :key="index"
           >
             <CardList
-              :listTitle="city.title"
+              :listTitle="city.name"
               :cardsArray="city.categories"
               :cityId="city.id"
             />
@@ -45,6 +45,7 @@
 
 <script>
 export default {
+  name: 'main_page',
   data() {
     return {
       savedCards: [
@@ -72,46 +73,13 @@ export default {
             city: 'Одесса'
           }
         }
-      ],
-      citiesCards: [
-        {
-          title: 'Одесса',
-          id: 'odesa',
-          categories: [
-            {
-              title: 'Развлечения'
-            },
-            {
-              title: 'Интересные места'
-            }
-          ]
-        },
-        {
-          title: 'Киев',
-          id: 'kyiv',
-          categories: [
-            {
-              title: 'Развлечения'
-            },
-            {
-              title: 'Интересные места'
-            }
-          ]
-        },
-        {
-          title: 'Львов',
-          id: 'lviv',
-          categories: [
-            {
-              title: 'Развлечения'
-            },
-            {
-              title: 'Интересные места'
-            }
-          ]
-        }
       ]
     }
+  },
+  computed: {
+    citiesList() {
+      return this.$store.getters.citiesList
+    },
   }
 }
 </script>
