@@ -4,6 +4,17 @@
       <div class="city-select__bg">
         <img src="~/assets/main-bg.jpg" alt="" class="city-select__image">
         <div class="city-select__overlay"></div>
+        <svg class="city-select__wave" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+          <defs>
+            <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+          </defs>
+          <g class="parallax">
+<!--              <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(239,239,239,0.7" />-->
+<!--              <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(239,239,239,0.5)" />-->
+            <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(239,239,239,0.3)" />
+            <use xlink:href="#gentle-wave" x="48" y="7" fill="#efefef" />
+          </g>
+        </svg>
       </div>
       <button class="city-select__btn">Выбрать город</button>
     </div>
@@ -31,7 +42,10 @@
         <AboutSection/>
       </div>
       <div class="feedback-section">
-        <Feedback/>
+        <img v-if="!isMobileMode" class="feedback-section__wave" src="~/assets/feedback_wave.svg">
+        <div class="feedback-section__container">
+          <Feedback/>
+        </div>
       </div>
     </div>
     <div class="footer-section">
@@ -79,6 +93,9 @@ export default {
   computed: {
     citiesList() {
       return this.$store.getters.citiesList
+    },
+    isMobileMode() {
+      return this.$store.getters.isMobileMode;
     },
   }
 }
@@ -162,11 +179,102 @@ export default {
   margin-left: auto;
   margin-right: auto;
   display: block;
+  cursor: pointer;
+}
+.is-desktop .cities-section__more{
+  margin-top: 60px;
+  font-size: 20px;
+  line-height: 24px;
 }
 
 
 .about-section{
   padding-top: 30px;
   padding-bottom: 30px;
+}
+
+.feedback-section{
+  display: flex;
+  justify-content: center;
+}
+.feedback-section__container{
+  padding: 30px 50px;
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.is-desktop {
+  .city-select{
+    height: calc(100vh - 60px)
+  }
+  .about-section{
+    padding-top: 70px;
+  }
+
+  .feedback-section{
+    padding-top: 80px;
+    padding-bottom: 80px;
+    position: relative;
+  }
+  .feedback-section__container{
+    padding: 80px 95px;
+    background: #F2F2F2;
+    box-shadow: 3px 6px 17px rgba(38, 38, 38, 0.2);
+    border-radius: 5px;
+    max-width: 540px;
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.city-select__wave {
+  position: absolute;
+  width: 100%;
+  height: 10%;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+
+  .parallax > use {
+    animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+  }
+  .parallax > use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+  }
+  .parallax > use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+  }
+  .parallax > use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+  }
+  .parallax > use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+  }
+  @keyframes move-forever {
+    0% {
+      transform: translate3d(-90px, 0, 0);
+    }
+    100% {
+      transform: translate3d(85px, 0, 0);
+    }
+  }
+}
+
+.feedback-section__wave{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  bottom: 0;
+  height: 70%;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 1;
 }
 </style>

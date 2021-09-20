@@ -71,7 +71,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .app-menu{
   transform: translateX(-100%);
 }
@@ -92,5 +92,21 @@ export default {
   color: #ECECEC;
   opacity: 0.5;
   text-decoration: none;
+}
+
+.is-desktop{
+  .app-menu{
+    display: grid;
+    overflow: auto;
+    align-items: center;
+    &__list{
+      min-height: 700px;
+      height: unset;
+    }
+    &__item{
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  }
 }
 </style>

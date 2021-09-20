@@ -33,6 +33,12 @@ export default {
   font-size: 22px;
   color: #262626;
 }
+.is-desktop .list-header__title{
+  font-size: 36px;
+}
+.is-desktop .list-header__link{
+  font-size: 18px;
+}
 .list-header__link{
   font-weight: 500;
   font-size: 14px;

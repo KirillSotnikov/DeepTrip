@@ -1,16 +1,47 @@
 <template>
-  <div class="app">
+  <div class="app" :class="{'is-desktop': !isMobileMode}">
     <HeaderNav class="app-header"/>
     <div class="app-container">
       <Nuxt />
     </div>
     <AppMenu class="app-menu"/>
-    <BottomNav class="app-footer"/>
+    <transition name="fade">
+      <div
+        v-if="!isMobileMode && isVisibleMenu"
+        class="app-menu__overlay"
+        @click="closeMenu"
+      ></div>
+    </transition>
+    <BottomNav v-if="isMobileMode" class="app-footer"/>
   </div>
 </template>
 
 <script>
 export default {
+  computed: {
+    isMobileMode() {
+      return this.$store.getters.isMobileMode;
+    },
+    isVisibleMenu() {
+      return this.$store.getters.isVisibleMenu
+    }
+  },
+  methods: {
+    setMobileMode() {
+      const isMobileMode = window.innerWidth <= 768;
+      this.$store.dispatch('setIsMobileMode', isMobileMode);
+    },
+    closeMenu() {
+      this.$store.dispatch('closeMenu')
+    }
+  },
+  mounted() {
+    window.addEventListener('resize', this.setMobileMode);
+    this.setMobileMode();
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.setMobileMode);
+  },
   watch: {
     '$route.name'() {
       const element = document.querySelector('.app-container');
@@ -85,6 +116,27 @@ p, a, span, button, div, h1, h2, h3, h4, h5, h6, input {
   bottom: 60px;
   background: #262626;
   transition: all .3s ease-out;
+}
+
+.is-desktop{
+  .app-container{
+    bottom: 0;
+  }
+  .app-menu{
+    right: unset;
+    width: 400px;
+    bottom: 0;
+    z-index: 2;
+  }
+  .app-menu__overlay{
+    position: fixed;
+    left: 0;
+    top: 60px;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.7);
+    z-index: 1;
+  }
 }
 
 *{

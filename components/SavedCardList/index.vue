@@ -3,7 +3,7 @@
     <ListHeader :title="listTitle"/>
     <div class="card-list__container">
       <div class="card-list__wrapper">
-        <div 
+        <div
           class="card-list__box"
           v-for="(card, n) in cardsArray"
           :key="n"
@@ -42,6 +42,12 @@ export default {
   margin-right: -15px;
   margin-left: -15px;
 }
+.is-desktop .card-list__container{
+  margin-top: 60px;
+}
+.is-desktop .card-list{
+  padding-top: 90px;
+}
 .card-list__wrapper{
   display: flex;
   padding-left: 15px;
@@ -53,6 +59,9 @@ export default {
 }
 .card-list .card-list__item{
   width: 38vw;
+}
+.is-desktop .card-list .card-list__item{
+  width: calc(25vw - 50px);
 }
 .card-list__box:last-child{
   margin-right: 0;

@@ -3,7 +3,7 @@
     <div class="app_footer__logo">
       <img src="~/assets/logo.svg" class="app_footer__image">
     </div>
-    <div class="app_footer__menu">
+    <div v-if="isMobileMode" class="app_footer__menu">
       <router-link
         v-for="(item, index) in menuList"
         :key="index"
@@ -21,6 +21,18 @@
       <div class="app_footer__info-item">
         <material-icon name="mail_outline" class="app_footer__info-icon"/>
         <p class="app_footer__info-text">deep-trip@gmail.com</p>
+      </div>
+    </div>
+    <div v-if="!isMobileMode" class="wrapper">
+      <div class="app_footer__menu">
+        <router-link
+          v-for="(item, index) in menuList"
+          :key="index"
+          :to="item.link"
+          class="app_footer__menu-item"
+        >
+          {{ item.title }}
+        </router-link>
       </div>
     </div>
     <div class="app_footer__social">
@@ -73,6 +85,11 @@ export default {
         },
       ]
     }
+  },
+  computed: {
+    isMobileMode() {
+      return this.$store.getters.isMobileMode;
+    },
   }
 }
 </script>
@@ -145,5 +162,13 @@ export default {
       height: 100%;
     }
   }
+}
+.is-desktop .app_footer__menu{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+.is-desktop .app_footer__info{
+  margin-bottom: 40px;
 }
 </style>

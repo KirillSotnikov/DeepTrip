@@ -22,13 +22,6 @@ const citiesList = [
       src: 'https://coworker.imgix.net/pictures/C282/edit/lviv-resize.jpg?auto=format,compress&fit=clamp'
     }
   },
-  {
-    id: 'vinitsa',
-    name: 'Винница',
-    mainImage: {
-      src: 'https://tamtour.com.ua/local/image/440/009/ua241.jpg'
-    }
-  },
 ]
 
 const categoriesList = [
@@ -72,13 +65,6 @@ const categoriesList = [
     name: 'Развлечения',
     image: {
       src: 'https://topclub.ua/images/uploads/1city1.jpg'
-    }
-  },
-  {
-    id: 'nature',
-    name: 'Природа',
-    image: {
-      src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMC5Z2WD7HxVq1kWMP-5sIlqWqfH_FFZMALg&usqp=CAU'
     }
   },
 ]
@@ -330,17 +316,6 @@ const placesList = [
       },
     ],
   },
-  {
-    id: 'vinnytsa-fontan',
-    city_id: 'vinitsa', // TODO
-    category_id: 'nature', // TODO
-    mainImage: {
-      src: 'https://img.tourister.ru/files/2/2/8/3/6/1/3/4/clones/870_600_fixedwidth.jpg'
-    },
-    title: 'Roshen fontan',
-    description: 'Фонтан в Виннице «Рошен» считается самым крупным среди аналогичных плавающих фонтанов Европы, одним из десяти наиболее зрелищных в мире и единственным мультимедийным на территории Украины. Его фееричное открытие состоялось в сентябре 2011 года в присутствии тысяч винничан и гостей города. Уже в следующем сезоне фонтан занял лидирующие позиции в ряду местных достопримечательностей и превратился в современный символ Винницы.',
-    gallery: [],
-  }
 ]
 
 export default {
@@ -358,6 +333,8 @@ export default {
     categories: categoriesList,
 
     savedPlaces: [],
+
+    isMobileMode: false,
   },
   mutations: {
     openMenu(state) {
@@ -371,9 +348,15 @@ export default {
     },
     setIsHeaderVisible(state, payload) {
       state.isHeaderVisible = payload;
+    },
+    setIsMobileMode(state, payload) {
+      state.isMobileMode = payload;
     }
   },
   actions: {
+    setIsMobileMode(store, payload) {
+      store.commit('setIsMobileMode', payload);
+    },
     openMenu(store) {
       store.commit('openMenu');
     },
@@ -388,6 +371,9 @@ export default {
     }
   },
   getters: {
+    isMobileMode(state) {
+      return state.isMobileMode
+    },
     isVisibleMenu(state) {
       return state.isVisibleMenu
     },

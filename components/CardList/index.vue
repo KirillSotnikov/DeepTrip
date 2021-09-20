@@ -10,7 +10,7 @@
         >
           <Card
             class="card-list__item"
-            :style="cardsArray.length > 1 && cardsArray.length <= 2 ? `width: calc((100vw - 30px - 15px - 2px) / ${cardsArray.length})` : ''"
+            :style="cardStyles"
             :image="card.image"
             :title="card.name"
           />
@@ -39,6 +39,23 @@ export default {
   },
   components: {
     Card
+  },
+  computed: {
+    isMobileMode() {
+      return this.$store.getters.isMobileMode;
+    },
+    cardStyles() {
+      if (this.isMobileMode) {
+        if (this.cardsArray.length === 1) {
+          return 'width: calc((100vw - 30px - 15px - 2px) / 2)'
+        } else if (this.cardsArray.length <= 2) {
+          return `width: calc((100vw - 30px - 15px - 2px) / ${this.cardsArray.length})`
+        }
+      } else {
+        return 'width: 25vw; max-width: 370px;'
+      }
+      return ''
+    }
   }
 }
 </script>
@@ -50,6 +67,12 @@ export default {
   display: flex;
   margin-right: -15px;
   margin-left: -15px;
+}
+.is-desktop .card-list{
+  padding-top: 80px;
+}
+.is-desktop .card-list__container{
+  margin-top: 40px;
 }
 .card-list__wrapper{
   display: flex;

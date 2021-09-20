@@ -23,14 +23,13 @@
 
 <script>
 export default {
-  
+
 }
 </script>
 
 <style lang="scss" scoped>
   .feedback{
-    padding-top: 30px;
-    padding-bottom: 30px;
+    width: 100%;
     &-title{
       font-size: 22px;
       font-weight: 700;
@@ -38,9 +37,7 @@ export default {
       margin-bottom: 30px;
     }
     &-form{
-      padding-left: 50px;
-      padding-right: 50px;
-      max-width: 400px;
+      width: 100%;
     }
     &-item{
       width: 100%;
@@ -89,6 +86,17 @@ export default {
       border: none;
       border-radius: 5px;
       box-shadow: 2px 3px 9px rgba(38, 38, 38, 0.15);
+    }
+  }
+
+  .is-desktop{
+    .feedback{
+      &-title{
+        font-size: 36px;
+      }
+      &-button{
+        font-size: 20px;
+      }
     }
   }
 </style>

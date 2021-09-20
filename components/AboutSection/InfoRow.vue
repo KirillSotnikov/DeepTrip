@@ -45,4 +45,36 @@ export default {
       }
     }
   }
+
+  .is-desktop {
+    .about{
+      &-row{
+        justify-content: flex-start;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+
+        &-reverted{
+          justify-content: flex-end;
+          .about-row-image{
+            margin-right: 0;
+            margin-left: 30px;
+          }
+          .about-row-text{
+            text-align: right;
+          }
+        }
+
+        &-image{
+          width: 180px;
+          margin-right: 30px;
+        }
+
+        &-text{
+          width: 100%;
+        }
+      }
+    }
+  }
 </style>
