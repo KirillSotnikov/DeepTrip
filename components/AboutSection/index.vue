@@ -1,11 +1,11 @@
 <template>
   <div class="about-block">
-    <ListHeader v-if="isMobileMode" class="about-header" :title="'О нас'"/>
+    <ListHeader v-if="isMobileMode" class="about-header" :title="'О нас'" moreLink="/about"/>
     <div class="about-content">
       <p v-if="isMobileMode" class="about-description">Мы - компания, ориентированная на клиента. Поэтому мы предпочитаем проводить предварительные тщательные обсуждение с нашими потенциальными клиентами, для удостоверения в том, что мы нашли для них наилучшее возможное решение.</p>
       <div v-if="!isMobileMode" class="about-content__container">
         <div class="about-content__box">
-          <ListHeader class="about-header" :title="'О нас'"/>
+          <ListHeader class="about-header" :title="'О нас'" moreLink="/about"/>
           <p class="about-description">Мы - компания, ориентированная на клиента. Поэтому мы предпочитаем проводить предварительные тщательные обсуждение с нашими потенциальными клиентами, для удостоверения в том, что мы нашли для них наилучшее возможное решение.</p>
         </div>
         <div class="about-content__box">

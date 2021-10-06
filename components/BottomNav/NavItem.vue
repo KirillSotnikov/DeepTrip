@@ -1,17 +1,14 @@
 <template>
-  <div @click="handleClick" class="bottom-nav__item">
-    <material-icon class="bottom-nav__icon" :name="iconName"/>
+  <nuxt-link :to="link" :tag="link ? 'a' : 'div'" @click.native="handleClick" class="bottom-nav__item">
+    <component :is="icon" class="bottom-nav__icon"></component>
     <span class="bottom-nav__text">{{title}}</span>
-  </div>
+  </nuxt-link>
 </template>
 
 <script>
 export default {
   props: {
-    iconName: {
-      type: String,
-      default: ''
-    },
+    icon: Object,
     title: {
       type: String,
       default: ''
@@ -19,8 +16,12 @@ export default {
     handleClick: {
       type: Function,
       default: () => {}
+    },
+    link: {
+      type: String,
+      default: '',
     }
-  }
+  },
 }
 </script>
 
@@ -33,6 +34,7 @@ export default {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    text-decoration: none;
   }
   .bottom-nav__icon{
     font-size: 30px;

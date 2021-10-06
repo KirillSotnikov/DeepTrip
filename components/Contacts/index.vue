@@ -3,11 +3,11 @@
     <h1 class="app_contacts__title">Контакты</h1>
     <div class="app_contacts__info">
       <div class="app_contacts__info-item">
-        <material-icon name="phone_android" class="app_contacts__info-icon"/>
+        <phone-icon class="app_contacts__info-icon"/>
         <p class="app_contacts__info-text">+38 (055) 236-18-18</p>
       </div>
       <div class="app_contacts__info-item">
-        <material-icon name="mail_outline" class="app_contacts__info-icon"/>
+        <mail-icon name="mail_outline" class="app_contacts__info-icon"/>
         <p class="app_contacts__info-text">deep-trip@gmail.com</p>
       </div>
       <div class="app_contacts__info-item">
@@ -23,8 +23,13 @@
 </template>
 
 <script>
+import PhoneIcon from 'vue-material-design-icons/Cellphone.vue';
+import MailIcon from 'vue-material-design-icons/EmailOutline.vue';
 export default {
-
+  components: {
+    PhoneIcon,
+    MailIcon,
+  }
 }
 </script>
 

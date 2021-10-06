@@ -15,11 +15,11 @@
     </div>
     <div class="app_footer__info">
       <div class="app_footer__info-item">
-        <material-icon name="phone_android" class="app_footer__info-icon"/>
+        <PhoneIcon class="app_footer__info-icon"/>
         <p class="app_footer__info-text">+38 (055) 236-18-18</p>
       </div>
       <div class="app_footer__info-item">
-        <material-icon name="mail_outline" class="app_footer__info-icon"/>
+        <MailIcon class="app_footer__info-icon"/>
         <p class="app_footer__info-text">deep-trip@gmail.com</p>
       </div>
     </div>
@@ -47,7 +47,13 @@
 </template>
 
 <script>
+import PhoneIcon from 'vue-material-design-icons/Cellphone.vue';
+import MailIcon from 'vue-material-design-icons/EmailOutline.vue';
 export default {
+  components: {
+    PhoneIcon,
+    MailIcon
+  },
   data() {
     return {
       menuList: [
@@ -60,12 +66,16 @@ export default {
           link: '/faq'
         },
         {
+          title: 'Избранное',
+          link: '/saved'
+        },
+        {
           title: 'Блог',
           link: '/blog'
         },
         {
           title: 'О нас',
-          link: '/about-us'
+          link: '/about'
         },
         {
           title: 'Интересные места',
@@ -78,10 +88,6 @@ export default {
         {
           title: 'Развлечения',
           link: '/entertainments'
-        },
-        {
-          title: 'Выйти',
-          link: '/'
         },
       ]
     }

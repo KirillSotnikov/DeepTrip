@@ -11,27 +11,32 @@
         <span class="header-nav__burger-item"></span>
         <span class="header-nav__burger-item"></span>
       </div>
+<!--      <ArrowLeft v-if="isBackArrowVisible" class="header-nav__back"/>-->
       <nuxt-link to="/" class="header-nav__logo">
         <img src="~/assets/logo.svg"/>
       </nuxt-link>
     </div>
-    <transition name="fade" :duration="200">
-      <div v-if="activeCity && isHeaderVisible" class="header-nav__select">
-        <material-icon name="place" class="header-nav__icon"/>
-        <span class="header-nav__text">{{ activeCity.name }}</span>
-      </div>
-    </transition>
+    <div v-if="!!activeCity && isHeaderVisible" class="header-nav__select">
+      <span class="header-nav__text">{{ activeCity.name }}</span>
+    </div>
   </div>
 </template>
 
 <script>
+import ArrowLeft from 'vue-material-design-icons/ArrowLeft.vue'
 export default {
+  components: {
+    ArrowLeft
+  },
   computed: {
     activeCityId() {
       return this.$store.getters.activeCityId;
     },
     isMobileMode() {
       return this.$store.getters.isMobileMode;
+    },
+    isBackArrowVisible() {
+      return this.isMobileMode;
     },
     activeCity() {
       return this.activeCityId ? this.$store.getters.getCityById(this.activeCityId) : null;

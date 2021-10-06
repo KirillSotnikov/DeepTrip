@@ -1,14 +1,26 @@
 <template>
-  <div class="card-list">
-    <ListHeader :title="listTitle"/>
+  <div
+    class="card-list"
+    :class="{'card-list__grid': !!gridColumns}"
+  >
+    <ListHeader v-if="isHeaderVisible" :title="listTitle" moreLink="/saved"/>
     <div class="card-list__container">
-      <div class="card-list__wrapper">
+      <div
+        class="card-list__wrapper"
+        :style="gridColumns ? `grid-template-columns: repeat(${gridColumns}, 1fr)` : ''"
+      >
         <div
           class="card-list__box"
-          v-for="(card, n) in cardsArray"
+          v-for="(place, n) in cardsArray"
           :key="n"
         >
-          <Card class="card-list__item" :image="card.image" :bottomDescription="card.description"/>
+          <Card
+            class="card-list__item"
+            :image="place.mainImage"
+            :title="place.title"
+            :city="place.city.name"
+            :link="`/places/${place.id}`"
+          />
         </div>
       </div>
     </div>
@@ -26,7 +38,15 @@ export default {
     cardsArray: {
       type: Array,
       default: []
-    }
+    },
+    isHeaderVisible: {
+      type: Boolean,
+      default: true
+    },
+    gridColumns: {
+      type: Number,
+      default: 0
+    },
   },
   components: {
     Card
@@ -34,7 +54,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .card-list__container{
   margin-top: 15px;
   overflow: auto;
@@ -44,9 +64,6 @@ export default {
 }
 .is-desktop .card-list__container{
   margin-top: 60px;
-}
-.is-desktop .card-list{
-  padding-top: 90px;
 }
 .card-list__wrapper{
   display: flex;
@@ -61,9 +78,25 @@ export default {
   width: 38vw;
 }
 .is-desktop .card-list .card-list__item{
-  width: calc(25vw - 50px);
+  width: 20vw;
+  max-width: 300px;
 }
 .card-list__box:last-child{
   margin-right: 0;
+}
+
+.card-list__grid{
+  .card-list__wrapper{
+    width: 100%;
+    display: grid;
+    grid-gap: 20px;
+  }
+  .card-list__box{
+    width: 100%;
+    margin-right: 0;
+  }
+  .card-list__item{
+    width: 100%;
+  }
 }
 </style>

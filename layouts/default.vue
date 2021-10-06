@@ -38,6 +38,10 @@ export default {
   mounted() {
     window.addEventListener('resize', this.setMobileMode);
     this.setMobileMode();
+
+    if (process.browser) {
+      this.$store.dispatch('uploadSavedPlaces');
+    }
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.setMobileMode);

@@ -23,6 +23,10 @@ export default {
           link: '/'
         },
         {
+          title: 'Избранное',
+          link: '/saved'
+        },
+        {
           title: 'Блог',
           link: '/blog'
         },
@@ -40,7 +44,7 @@ export default {
         },
         {
           title: 'О нас',
-          link: '/about-us'
+          link: '/about'
         },
         {
           title: 'Контакты',

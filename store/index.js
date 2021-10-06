@@ -1,4 +1,5 @@
 // import users from './modules/users'
+import { SavedCardsLS } from '../utils/LS';
 
 const citiesList = [
   {
@@ -322,19 +323,21 @@ export default {
   modules: {
     // users
   },
-  state: {
-    isVisibleMenu: false,
-    activeCityId: null,
+  state() {
+    return {
+      isVisibleMenu: false,
+      activeCityId: null,
 
-    isHeaderVisible: false,
+      isHeaderVisible: false,
 
-    places: placesList,
-    cities: citiesList,
-    categories: categoriesList,
+      places: placesList,
+      cities: citiesList,
+      categories: categoriesList,
 
-    savedPlaces: [],
+      savedPlaces: [],
 
-    isMobileMode: false,
+      isMobileMode: false,
+    }
   },
   mutations: {
     openMenu(state) {
@@ -351,9 +354,30 @@ export default {
     },
     setIsMobileMode(state, payload) {
       state.isMobileMode = payload;
+    },
+    addSavedPlace(state, payload) {
+      state.savedPlaces.push(payload);
+    },
+    removeSavedPlace(state, payload) {
+      state.savedPlaces = state.savedPlaces.filter(item => item !== payload);
+    },
+    setSavedPlaces(state, payload) {
+      state.savedPlaces = payload;
     }
   },
   actions: {
+    uploadSavedPlaces(store) {
+      const places = SavedCardsLS.client.places;
+      store.commit('setSavedPlaces', places);
+    },
+    addSavedPlace(store, payload) {
+      store.commit('addSavedPlace', payload);
+      SavedCardsLS.client.addSavedCard(payload);
+    },
+    removeSavedPlace(store, payload) {
+      store.commit('removeSavedPlace', payload);
+      SavedCardsLS.client.removeSavedCard(payload);
+    },
     setIsMobileMode(store, payload) {
       store.commit('setIsMobileMode', payload);
     },
@@ -383,6 +407,15 @@ export default {
     activeCityId(state) {
       return state.activeCityId;
     },
+    savedList(state) {
+      return state.savedPlaces.map(item => {
+        const place = state.places.find(place => place.id === item);
+        return {
+          ...place,
+          city: state.cities.find(city => city.id === place.city_id)
+        }
+      })
+    },
     citiesList(state) {
       return state.cities.map(city => {
         const places = state.places.filter(place => place.city_id === city.id);
@@ -402,9 +435,18 @@ export default {
     },
     getCityById: (state) => id => {
       const city = state.cities.find(city => city.id === id);
+      const places = state.places.filter(place => place.city_id === city.id);
+      let categories = [];
+      places.forEach((place) => {
+        if (!categories.find(category => category.id === place.category_id)) {
+          const category = state.categories.find(item => item.id === place.category_id)
+          categories.push(category);
+        }
+      })
       return {
         ...city,
-        places: state.places.filter(place => place.city_id === city.id),
+        places,
+        categories,
       }
     },
     getPlaceById: (state) => id => {
@@ -413,6 +455,9 @@ export default {
         ...place,
         city: state.cities.find(city => city.id === place.city_id)
       }
+    },
+    isSavedPlace: (state) => id => {
+      return state.savedPlaces.includes(id);
     }
   }
 }

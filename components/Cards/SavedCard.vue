@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <router-link :to="link" class="card">
     <div class="card__box">
       <div class="card__bg">
         <img v-if="Object.keys(image).length" :src="image.src" :alt="image.alt" class="card__image">
@@ -7,17 +7,21 @@
       </div>
     </div>
     <div class="card__description">
-      <p class="card__description-title">{{bottomDescription.title}}</p>
+      <p class="card__description-title">{{title}}</p>
       <div class="card__description-city">
-        <material-icon class="card__description-icon" name="place" />
-        <p class="card__description-subtitle">{{bottomDescription.city}}</p>
+        <PlaceIcon class="card__description-icon" />
+        <p class="card__description-subtitle">{{city}}</p>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
+import PlaceIcon from 'vue-material-design-icons/MapMarker.vue'
 export default {
+  components: {
+    PlaceIcon
+  },
   props: {
     image: {
       type: Object,
@@ -25,9 +29,17 @@ export default {
         return {}
       }
     },
-    bottomDescription: {
-      type: Object,
-      default: {}
+    title: {
+      type: String,
+      default: ''
+    },
+    link: {
+      type: String,
+      default: ''
+    },
+    city: {
+      type: String,
+      default: ''
     }
   }
 }
@@ -36,6 +48,8 @@ export default {
 <style scoped>
 .card{
   width: 100%;
+  display: block;
+  text-decoration: none;
 }
 .card__box{
   border-radius: 5px;

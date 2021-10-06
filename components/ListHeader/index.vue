@@ -1,6 +1,8 @@
 <template>
   <div class="list-header">
-    <p class="list-header__title">{{title}}</p>
+    <div class="list-header__container">
+      <p class="list-header__title">{{title}}</p>
+    </div>
     <nuxt-link class="list-header__link" :to="moreLink">
       Подробнее
     </nuxt-link>

@@ -3,10 +3,11 @@
     <ListHeader :moreLink="`/cities/${cityId}`" :title="listTitle"/>
     <div class="card-list__container">
       <div class="card-list__wrapper">
-        <div
+        <nuxt-link
           class="card-list__box"
           v-for="(card, n) in cardsArray"
           :key="n"
+          :to="`/cities/${cityId}?category=${card.id}`"
         >
           <Card
             class="card-list__item"
@@ -14,7 +15,7 @@
             :image="card.image"
             :title="card.name"
           />
-        </div>
+        </nuxt-link>
       </div>
     </div>
   </div>
@@ -52,7 +53,7 @@ export default {
           return `width: calc((100vw - 30px - 15px - 2px) / ${this.cardsArray.length})`
         }
       } else {
-        return 'width: 25vw; max-width: 370px;'
+        return 'width: 20vw; max-width: 300px;'
       }
       return ''
     }

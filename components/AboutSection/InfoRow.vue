@@ -50,7 +50,7 @@ export default {
     .about{
       &-row{
         justify-content: flex-start;
-        max-width: 900px;
+        max-width: 800px;
         margin-left: auto;
         margin-right: auto;
         margin-top: 10px;

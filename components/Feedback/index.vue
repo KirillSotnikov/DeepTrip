@@ -13,7 +13,7 @@
       </div>
       <label class="feedback-upload">
         <input type="file" class="feedback-upload-input">
-        <material-icon name="cloud_upload_outline" class="feedback-upload-icon"/>
+        <CloudUploadIcon class="feedback-upload-icon"/>
         <p class="feedback-upload-text">Загрузить файл</p>
       </label>
       <button type="submit" class="feedback-button">Отправить</button>
@@ -22,8 +22,11 @@
 </template>
 
 <script>
+import CloudUploadIcon from 'vue-material-design-icons/CloudUploadOutline.vue';
 export default {
-
+  components: {
+    CloudUploadIcon
+  }
 }
 </script>
 

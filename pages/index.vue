@@ -19,8 +19,8 @@
       <button class="city-select__btn">Выбрать город</button>
     </div>
     <div class="wrapper">
-      <div class="saved-section">
-        <SavedCardList listTitle="Избранное" :cardsArray="savedCards" />
+      <div v-if="savedList && savedList.length" class="saved-section">
+        <SavedCardList listTitle="Избранное" :cardsArray="savedList" />
       </div>
       <div class="cities-section">
         <div class="cities-section__list">
@@ -60,39 +60,12 @@
 <script>
 export default {
   name: 'main_page',
-  data() {
-    return {
-      savedCards: [
-        {
-          description: {
-            title: 'Дом у дороги',
-            city: 'Одесса'
-          }
-        },
-        {
-          description: {
-            title: 'Дом у дороги',
-            city: 'Одесса'
-          }
-        },
-        {
-          description: {
-            title: 'Дом у дороги',
-            city: 'Одесса'
-          }
-        },
-        {
-          description: {
-            title: 'Дом у дороги',
-            city: 'Одесса'
-          }
-        }
-      ]
-    }
-  },
   computed: {
     citiesList() {
       return this.$store.getters.citiesList
+    },
+    savedList() {
+      return this.$store.getters.savedList;
     },
     isMobileMode() {
       return this.$store.getters.isMobileMode;
@@ -153,6 +126,9 @@ export default {
 
 .saved-section{
   padding-top: 30px;
+}
+.is-desktop .saved-section{
+  padding-top: 120px;
 }
 
 .cities-section{
@@ -217,6 +193,7 @@ export default {
     padding-top: 80px;
     padding-bottom: 80px;
     position: relative;
+    z-index: 1;
   }
   .feedback-section__container{
     padding: 80px 95px;

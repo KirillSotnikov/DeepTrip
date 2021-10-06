@@ -1,20 +1,58 @@
 <template>
   <div class="bottom-nav">
-    <NavItem :handleClick="toggleMenu" iconName="menu" title="Меню"/>
-    <NavItem :handleClick="closeMenu" iconName="star_border" title="Избранное"/>
-    <NavItem :handleClick="closeMenu" iconName="person_outline" title="Профиль"/>
+    <NavItem
+      v-for="(navItem, index) in navbarArray"
+      :key="index"
+      :handleClick="navItem.clickHandler"
+      :title="navItem.title"
+      :icon="navItem.icon"
+      :link="navItem.link"
+    />
   </div>
 </template>
 
 <script>
+import MenuIcon from 'vue-material-design-icons/Menu.vue'
+import StarIcon from 'vue-material-design-icons/StarOutline.vue'
+import PersonIcon from 'vue-material-design-icons/AccountOutline.vue'
 import NavItem from './NavItem'
+
 export default {
   components: {
-    NavItem
+    NavItem,
+    MenuIcon,
+    StarIcon,
+    PersonIcon,
   },
   computed: {
     isVisibleMenu() {
       return this.$store.getters.isVisibleMenu
+    },
+    navbarArray() {
+      return [
+        {
+          title: 'Меню',
+          icon: MenuIcon,
+          clickHandler: () => {
+            this.toggleMenu()
+          }
+        },
+        {
+          title: 'Избранное',
+          icon: StarIcon,
+          clickHandler: () => {
+            this.closeMenu()
+          },
+          link: '/saved'
+        },
+        {
+          title: 'Профиль',
+          icon: PersonIcon,
+          clickHandler: () => {
+            this.closeMenu()
+          }
+        },
+      ]
     }
   },
   methods: {

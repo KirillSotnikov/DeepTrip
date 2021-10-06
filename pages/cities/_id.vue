@@ -3,9 +3,9 @@
     <div class="city_info" ref="infoContainer">
       <div class="city_info__gradient"></div>
       <div :style="`background-image: url(${activeCity.mainImage.src})`" class="city_info__image"></div>
-      <p class="city_info__title">{{ activeCity.name }}</p>
+      <h2 class="city_info__title">{{ activeCity.name }}</h2>
     </div>
-    <div class="wrapper">
+    <div v-if="isMobileMode" class="wrapper">
       <div class="view_section">
         <div
           class="view_section__item"
@@ -36,30 +36,50 @@
     <div class="categories_section">
       <div class="categories_section__list">
         <p
+          @click="changeCategory()"
           class="categories_section__list-item"
-          v-for="(item, index) in categories"
-          :key="index"
-          :class="{'categories_section__list-item-active': index === 0}"
+          :class="{'categories_section__list-item-active': !activeCategoryId || activeCategoryId === 'all'}"
         >
-          {{ item.title }}
+          Все
+        </p>
+        <p
+          @click="changeCategory(item.id)"
+          class="categories_section__list-item"
+          v-for="item in activeCity.categories"
+          :key="item.id"
+          :class="{'categories_section__list-item-active': activeCategoryId === item.id}"
+        >
+          {{ item.name }}
         </p>
       </div>
     </div>
     <div class="wrapper">
       <div class="cards_section">
-        <div class="cards_section__list" :class="{'cards_section__list-square': activeType === typeEnum.SQUARES}">
+        <div class="cards_section__list" :class="{'cards_section__list-square': selectedType === typeEnum.SQUARES}">
           <ListCard
             class="cards_section__list-item"
-            v-for="(place, index) in activeCity.places"
+            v-for="(place) in citiesToDisplay"
             :key="place.id"
             :title="place.title"
             :image="place.mainImage"
             :description="place.description"
-            :type="activeType"
+            :type="selectedType"
             :linkForMore="`/places/${place.id}`"
           />
         </div>
       </div>
+    </div>
+    <div class="feedback-section">
+      <img v-if="!isMobileMode" class="feedback-section__wave" src="~/assets/feedback_wave.svg">
+      <div class="feedback-section__container">
+        <Feedback/>
+      </div>
+    </div>
+    <div class="footer-section">
+      <Footer/>
+    </div>
+    <div class="copyright-section">
+      <Copyright/>
     </div>
   </div>
 </template>
@@ -69,22 +89,11 @@ import ListCard from '~/components/Cards/ListCard.vue'
 import { typeEnum } from '~/constants'
 export default {
   name: "city_id",
+  components: {
+    ListCard
+  },
   data() {
     return {
-      categories: [
-        {
-          title: 'Площади и улицы'
-        },
-        {
-          title: 'Памятники'
-        },
-        {
-          title: 'Смотровые площадки'
-        },
-        {
-          title: 'Площади и улицы'
-        },
-      ],
       activeType: typeEnum.GALLERY,
       typeEnum,
       infoPosition: 0,
@@ -97,9 +106,35 @@ export default {
     },
     activeCity() {
       return this.$store.getters.getCityById(this.$route.params.id)
+    },
+    isMobileMode() {
+      return this.$store.getters.isMobileMode;
+    },
+    selectedType() {
+      return this.isMobileMode ? this.activeType : typeEnum.SQUARES
+    },
+    citiesToDisplay() {
+      if (this.activeCategoryId && this.activeCategoryId !== 'all'){
+        return this.activeCity.places.filter(place => place.category_id === this.activeCategoryId);
+      }
+      return this.activeCity.places;
+    },
+    activeCategoryId() {
+      const queryCategory = this.$route.query.category;
+      if (queryCategory && this.activeCity.categories.find(category => category.id === queryCategory)) {
+        return queryCategory;
+      }
+      return 'all'
     }
   },
   methods: {
+    changeCategory(id) {
+      if (id) {
+        this.$router.push(`${this.$route.path}?category=${id}`);
+      } else {
+        this.$router.push(`${this.$route.path}?category=all`);
+      }
+    },
     changeType(type) {
       this.activeType = type;
     },
@@ -165,20 +200,26 @@ export default {
 }
 
 .categories_section{
-  padding-left: 20px;
+  padding-left: 15px;
   padding-bottom: 20px;
+  max-width: 1200px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
   &__list{
     display: flex;
     align-items: center;
     overflow: auto;
-    padding-right: 20px;
+    padding-right: 15px;
 
     &-item{
       white-space: nowrap;
       margin-bottom: 10px;
       color: #262626;
-      margin-right: 10px;
+      margin-right: 20px;
       opacity: .3;
+      cursor: pointer;
 
       &:last-child{
         margin-right: 0;
@@ -231,13 +272,52 @@ export default {
   }
   &__title{
     position: absolute;
-    left: 0;
-    right: 0;
+    max-width: 1200px;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
     bottom: 0;
     padding: 15px;
     color: #fff;
     font-size: 24px;
     z-index: 2;
+    font-weight: 400;
+  }
+}
+
+.is-desktop {
+  .cards_section{
+    &__list{
+      &-square{
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 20px;
+      }
+    }
+  }
+  .city_info{
+    &__image{
+      height: calc(50vh - 60px);
+    }
+    &__title{
+      font-size: 36px;
+    }
+  }
+  .view_section{
+    justify-content: flex-start;
+    &__item{
+      margin-right: 30px;
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+  }
+  .categories_section{
+    padding-top: 30px;
+    &__list{
+      &-item{
+        margin-right: 30px;
+      }
+    }
   }
 }
 </style>
